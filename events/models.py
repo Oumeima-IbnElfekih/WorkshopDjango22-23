@@ -31,7 +31,7 @@ class Event(models.Model):
     organizer = models.ForeignKey(Person,on_delete=models.CASCADE)
     participations = models.ManyToManyField(Person ,related_name= 'participations' , through='Participation')
     def __str__(self):
-        return f" The event title is {self.title} wtih category {self.category}"
+        return f" The event title is {self.title} with category {self.category}"
     class Meta:
         constraints =[
             models.CheckConstraint(
