@@ -3,6 +3,14 @@ from .models import Event ,Participation
 from datetime import datetime
 
 # Register your models here.
+
+class ParticipationInline(admin.StackedInline):
+    model =Participation
+    extra=1
+    readonly_fields=('date_participation',)
+    can_delete=True
+
+
 class ParticipantFilter(admin.SimpleListFilter):
     title='NBR Participant'
     parameter_name ='nbe_participant'
@@ -47,8 +55,17 @@ class EventAdmin(admin.ModelAdmin):
     list_per_page =5
     ordering =('-title','category')
     search_fields=('title','category')
-    
-
+    readonly_fields=('created_at','updated_at')
+    autocomplete_fields=('organizer',)
+    fieldsets=(('State', { 'fields': ('state',)}),
+                ('Event', { 
+                           
+                           'classes' :('collapse',),
+                           'fields': ('title', 'description','category' ,'nbe_participant' ,'image',
+                                       'organizer')}),
+                     ('Dates', { 'fields': ('evt_date','created_at','updated_at')})
+               )
+    inlines=[ParticipationInline]
 class ParticipationsAdmin(admin.ModelAdmin):
     pass
 

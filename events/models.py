@@ -42,6 +42,8 @@ class Event(models.Model):
                 
                 ),
         ]
+        verbose_name =('Evenement')
+        verbose_name_plural ='Evenements'
        
         
     
