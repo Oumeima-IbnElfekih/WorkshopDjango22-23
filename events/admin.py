@@ -35,7 +35,7 @@ class DateFilter(admin.SimpleListFilter):
             return queryset.filter(evt_date__gt=datetime.today())
         if self.value() =='Today Event':
             return queryset.filter(evt_date__exact=datetime.today())
-        
+
 def accept_events(model_admin,request,queryset):
         rows_updated=queryset.update(state=True)
         if rows_updated ==1:

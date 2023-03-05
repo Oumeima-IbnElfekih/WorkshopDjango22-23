@@ -11,7 +11,7 @@ from django.core.validators import MinValueValidator
 def title_valid(val):
     if not val[0].isupper():      
         raise  ValidationError("le titre doit commencer par une majuscule")
-    return
+    return val
 class Event(models.Model):
     title = models.CharField(max_length=255,blank=False, validators=[title_valid])
     description = models.TextField()

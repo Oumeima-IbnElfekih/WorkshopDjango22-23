@@ -1,0 +1,11 @@
+<h1> List des evenements </h1>
+<ul>
+
+    {%  for e in events  %}
+        <li>{{e.title}}</li> 
+        <li>{{e.description}}</li>
+        <li>{{e.state}}</li>
+    {% endfor %}
+
+
+</ul>
