@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.urls import reverse_lazy
 from .models import Event
 from .forms import EventForm ,EventModelForm
-from django.views.generic import ListView ,DetailView ,CreateView ,UpdateView
+from django.views.generic import ListView ,DetailView ,CreateView ,UpdateView,DeleteView
 # Create your views here.
 ####################################################
 
@@ -74,7 +74,7 @@ class EventListClass(ListView):
     context_object_name ='events'
     # queryset = Event.objects.filter(state=True)
     def get_queryset(self):
-        return Event.objects.filter(state=True)
+        return Event.objects.all()
     
 
 class EventDetail(DetailView):
@@ -93,5 +93,9 @@ class UpdateEvent(UpdateView):
     model=Event
     template_name ="events/event_form.html"
     form_class =EventModelForm
+    success_url = reverse_lazy('event_list_view')
+    
+class EventDeleteView(DeleteView):
+    model = Event
     success_url = reverse_lazy('event_list_view')
     

@@ -129,3 +129,5 @@ AUTH_USER_MODEL = "users.Person"
 
 MEDIA_ROOT = 'media/'
 MEDIA_URL = 'media/'
+LOGOUT_REDIRECT_URL="/users/login"
+# LOGIN_REDIRECT_URL

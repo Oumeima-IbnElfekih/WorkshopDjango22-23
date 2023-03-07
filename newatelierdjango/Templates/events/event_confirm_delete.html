@@ -1,0 +1,9 @@
+{% extends "base.html" %} {% block content %} 
+<form method="post" class="mt-5">
+    {% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    {{ form }}
+    <input type="submit" value="Confirm" class="btn btn-danger" />
+    <a href="{% url 'event_list_view' %}" class="btn btn-light"> Cancel </a>
+</form>
+{% endblock %}

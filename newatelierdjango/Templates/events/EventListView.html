@@ -20,9 +20,11 @@
                 >View Details</a
               >
               <a href="{% url 'update_event_view' e.id %}" class="btn btn-success"
-              >Update Event</a
-            >
+              >Update Event</a>
+             
               <p class="card-text mt-2">Nombre : {{e.nbe_participant}}</p>
+              <a href="{% url 'Events_Delete_View' e.id %}" class="btn btn-danger"
+              >Delete Event</a>
             </div>
             <div class="card-footer">
               <small class="text-muted">{{e.evt_date}}</small>
