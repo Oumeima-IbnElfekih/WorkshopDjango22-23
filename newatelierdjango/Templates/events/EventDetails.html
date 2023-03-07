@@ -11,6 +11,7 @@
       <p>{{event.evt_date}}</p>
       <p>{{event.category}}</p>
       <a class="btn btn-outline-secondary" href="{% url 'participate' event.id %}">Participate</a>
+      <a class="btn btn-outline-danger" href="{% url 'cancel' event.id %}">Cancel Participation</a>
     </div>
   </div>
 </div>

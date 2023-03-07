@@ -52,6 +52,8 @@ class Participation(models.Model):
     Person = models.ForeignKey(Person , on_delete=models.CASCADE)
     event = models.ForeignKey(Event,on_delete=models.CASCADE)
     date_participation= models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return f" The Participation is for the {self.event.title} with the {self.Person.username} organizer"
     class Meta:
         unique_together=('Person','event')
         

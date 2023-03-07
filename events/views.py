@@ -29,7 +29,7 @@ def eventStatic(req):
         }
     ]
     return render(req,'events/staticList.html',{'events':list})
-
+@login_required(login_url="login")
 def EventList(request):
     list =Event.objects.filter(state=True)
     print(list)
@@ -47,7 +47,7 @@ def create_event(request):
             print(form.errors)
     return render(request,"events/event_form.html",{'form' :form})
         
-
+@login_required(login_url="login")
 def add_event(req):
     if req.method =="GET":
         form =EventModelForm()
@@ -62,7 +62,7 @@ def add_event(req):
             return render(req,"events/event_form.html",{'form' :form})
         
         
-
+@login_required(login_url="login")
 def participate(req,event_id):
     user=req.user
     event=Event.objects.get(id=event_id)
@@ -75,7 +75,14 @@ def participate(req,event_id):
     
     #continuer la logique métier
     
-
+def cancel(request, event_id):
+    user = request.user
+    event = Event.objects.filter(id=event_id).first()
+    participant = Participation.objects.filter(Person=user, event=event).first()
+    participant.delete()
+    event.nbe_participant -= 1
+    event.save()
+    return redirect('event_list_view')
 
 
 ####################################################
@@ -93,7 +100,8 @@ class EventListClass(LoginRequiredMixin,ListView):
         return Event.objects.filter(state=True)
     
 
-class EventDetail(DetailView):
+class EventDetail(LoginRequiredMixin,DetailView):
+    login_url="/users/login"
     model=Event
     template_name ='events/EventDetails.html'
     context_object_name ='event'
@@ -109,13 +117,15 @@ class CreateEvent(LoginRequiredMixin,CreateView):
         form.instance.organizer = Person.objects.get(cin=self.request.user.cin)
         return super().form_valid(form)
     
-class UpdateEvent(UpdateView):
+class UpdateEvent(LoginRequiredMixin,UpdateView):
+    login_url="/users/login"
     model=Event
     template_name ="events/event_form.html"
     form_class =EventModelForm
     success_url = reverse_lazy('event_list_view')
     
-class EventDeleteView(DeleteView):
+class EventDeleteView(LoginRequiredMixin,DeleteView):
+    login_url="/users/login"
     model = Event
     success_url = reverse_lazy('event_list_view')
     
