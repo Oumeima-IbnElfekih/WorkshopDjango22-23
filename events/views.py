@@ -72,17 +72,22 @@ def participate(req,event_id):
         event.nbe_participant+=1
         event.save()
         return redirect('event_list_view')
-    
-    #continuer la logique métier
+    else:
+        return redirect('event_list_view')
+    #changer la logique métier si vous voulez
     
 def cancel(request, event_id):
     user = request.user
     event = Event.objects.filter(id=event_id).first()
-    participant = Participation.objects.filter(Person=user, event=event).first()
-    participant.delete()
-    event.nbe_participant -= 1
-    event.save()
-    return redirect('event_list_view')
+    if  Participation.objects.filter(Person=user,event=event).count() != 0:
+        participant = Participation.objects.filter(Person=user, event=event).first()
+        participant.delete()
+        event.nbe_participant -= 1
+        event.save()
+        return redirect('event_list_view')
+    else:
+        return redirect('event_list_view')
+    #changer la logique métier si vous voulez
 
 
 ####################################################
