@@ -10,7 +10,7 @@
       <img src="{{ event.image.url }}" class="w-50" alt="event_img" />
       <p>{{event.evt_date}}</p>
       <p>{{event.category}}</p>
-      <button class="btn btn-outline-secondary" type="button">Participate</button>
+      <a class="btn btn-outline-secondary" href="{% url 'participate' event.id %}">Participate</a>
     </div>
   </div>
 </div>

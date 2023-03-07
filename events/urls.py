@@ -6,6 +6,7 @@ urlpatterns = [
     path('list/' ,EventList , name='event_list'),
     path('create_event/',create_event,name="create_event"),
     path('add_event/',add_event,name="add_event"),
+    path('participate/<int:event_id>',participate,name="participate"),
     path('listeventsView/' ,
          EventListClass.as_view() ,
          name='event_list_view'),

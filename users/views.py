@@ -23,10 +23,8 @@ def register(req):
     if req.method=="POST":
         print(req.POST)
         form =RegisterForm(req.POST)
-        
         if form.is_valid():
-            user=form.save(commit=False)
-            user.save()
+            user=form.save()
             login(req,user=user)
             return redirect('event_list_view')
        

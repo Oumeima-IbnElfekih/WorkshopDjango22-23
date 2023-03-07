@@ -10,8 +10,7 @@ class LoginForm(forms.ModelForm):
 class RegisterForm(UserCreationForm):
     class Meta:
         model=get_user_model() 
-        fields=['cin','first_name','last_name','email',
-                'password1','password2']
+        fields=['cin','username','first_name','last_name','email','password1','password2']
     
     def save(self, commit=True):
         return super(RegisterForm,self).save(commit)

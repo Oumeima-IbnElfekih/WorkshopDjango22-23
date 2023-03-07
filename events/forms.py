@@ -33,7 +33,7 @@ class EventModelForm(forms.ModelForm):
         model =Event
         # fields ='__all__'
         fields =['title', 'description',
-                 'category','organizer',
+                 'category',
                  'evt_date','nbe_participant',
                  'image']
         exclude=['state']
@@ -45,5 +45,5 @@ class EventModelForm(forms.ModelForm):
                 'class' :'form-control date-input'
             }
         ))
-    organizer=forms.ModelChoiceField(label="Event Organizer",
-                                     queryset=Person.objects.all())
+    # organizer=forms.ModelChoiceField(label="Event Organizer",
+    #                                  queryset=Person.objects.all())
