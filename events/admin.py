@@ -46,10 +46,25 @@ def accept_events(model_admin,request,queryset):
 accept_events.short_description='Accept'
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
+    def set_to_Refuse(self, request, queryset):
+        rows_NoValid = queryset.filter(state=False)
+        if rows_NoValid.count() > 0:
+            messages.error(
+                request, f"{rows_NoValid.count()} events are already marked as Not Accepted")
+        else:
+            rows_updated = queryset.update(state=False)
+            if rows_updated == 1:
+                message = "1 event was"
+            else:
+                message = f"{rows_updated} events were"
+            self.message_user(request, level='success',
+                              message="%s successfully marked as Not Accepted" % message)
+
+    set_to_Refuse.short_description = "Refuse"
     def event_participants(self,obj):
         count =obj.participations.count()
         return count
-    actions=[accept_events]
+    actions=[accept_events,'set_to_Refuse']
     list_display=('title','category','state','event_participants','evt_date')
     list_filter=('state','category',ParticipantFilter,DateFilter)
     list_per_page =5
